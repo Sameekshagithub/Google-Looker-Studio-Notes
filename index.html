@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Looker Studio – Complete Notes | Sameeksha 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:        #0a1628;
+    --navy-mid:    #112240;
+    --navy-light:  #1a3260;
+    --blue:        #1e4d8c;
+    --blue-bright: #2563b0;
+    --accent:      #0ea5e9;
+    --accent-glow: #38bdf8;
+    --gold:        #f0a500;
+    --white:       #ffffff;
+    --off-white:   #f8faff;
+    --text:        #1e2a3a;
+    --text-soft:   #3d5278;
+    --border:      #d0dff0;
+    --shadow:      0 4px 24px rgba(10,22,40,0.10);
+    --shadow-card: 0 8px 40px rgba(10,22,40,0.13);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 55%, var(--blue) 100%);
+    color: var(--white);
+    padding: 70px 60px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 20%, rgba(14,165,233,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 10% 90%, rgba(30,77,140,0.35) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(14,165,233,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(14,165,233,0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(14,165,233,0.18);
+    border: 1px solid rgba(14,165,233,0.35);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent-glow);
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 900; line-height: 1.1;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .hero h1 span { color: var(--accent-glow); }
+  .hero-sub {
+    font-size: 1.05rem; color: rgba(255,255,255,0.72);
+    max-width: 540px; margin-bottom: 32px; font-weight: 300;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 24px;
+  }
+  .meta-pill {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.82rem; color: rgba(255,255,255,0.65);
+  }
+  .meta-pill .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+  .meta-pill strong { color: var(--white); font-weight: 600; }
+
+  /* ─── TOC ─── */
+  .toc-wrap {
+    background: var(--off-white);
+    border-bottom: 2px solid var(--border);
+    padding: 32px 60px;
+  }
+  .toc-wrap h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; color: var(--navy); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .toc-wrap h2::before { content: '◈'; color: var(--accent); }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px;
+  }
+  .toc-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--blue);
+    font-size: 0.85rem; font-weight: 500;
+    transition: all .2s;
+  }
+  .toc-item:hover {
+    background: var(--navy);
+    color: var(--white);
+    border-color: var(--navy);
+    transform: translateX(3px);
+  }
+  .toc-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; color: var(--accent);
+    min-width: 24px;
+  }
+
+  /* ─── LAYOUT ─── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 60px 80px;
+  }
+
+  /* ─── SECTION ─── */
+  .section {
+    margin-bottom: 64px;
+    scroll-margin-top: 80px;
+  }
+  .section-header {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-icon {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, var(--navy), var(--blue-bright));
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(10,22,40,0.18);
+  }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; color: var(--accent);
+    display: block; margin-bottom: 2px;
+  }
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.65rem; color: var(--navy); font-weight: 700;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 28px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+    border-left: 4px solid var(--blue);
+    transition: box-shadow .2s;
+  }
+  .card:hover { box-shadow: var(--shadow-card); }
+  .card h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 600; color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .card p, .card li { font-size: 0.92rem; color: var(--text-soft); }
+  .card ul { padding-left: 18px; }
+  .card li { margin-bottom: 5px; }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .card-grid .card { margin-bottom: 0; }
+
+  /* ─── HIGHLIGHT BOX ─── */
+  .highlight {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    border-radius: 16px;
+    padding: 28px 32px;
+    color: var(--white);
+    margin: 24px 0;
+    position: relative; overflow: hidden;
+  }
+  .highlight::after {
+    content: '';
+    position: absolute; top: -20px; right: -20px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(14,165,233,0.12);
+  }
+  .highlight h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; color: var(--accent-glow);
+    margin-bottom: 10px;
+  }
+  .highlight p, .highlight li {
+    font-size: 0.9rem; color: rgba(255,255,255,0.80); line-height: 1.65;
+  }
+  .highlight ul { padding-left: 18px; }
+  .highlight li { margin-bottom: 5px; }
+
+  /* ─── TABLE ─── */
+  .table-wrap { overflow-x: auto; margin: 20px 0; border-radius: 12px; box-shadow: var(--shadow); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  thead { background: var(--navy); color: var(--white); }
+  thead th {
+    padding: 14px 16px; text-align: left;
+    font-weight: 600; letter-spacing: 0.03em;
+    font-family: 'DM Sans', sans-serif;
+  }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--off-white); }
+  tbody td { padding: 12px 16px; color: var(--text-soft); vertical-align: top; }
+  tbody td:first-child { color: var(--navy); font-weight: 600; }
+
+  /* ─── CODE ─── */
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    background: #eef3fb;
+    color: var(--blue);
+    border-radius: 5px;
+    padding: 2px 7px;
+    font-size: 0.82em;
+  }
+
+  /* ─── STEP LIST ─── */
+  .steps { counter-reset: step; }
+  .step {
+    display: flex; gap: 16px;
+    margin-bottom: 18px;
+    align-items: flex-start;
+  }
+  .step-num {
+    counter-increment: step;
+    min-width: 34px; height: 34px;
+    background: linear-gradient(135deg, var(--navy), var(--blue-bright));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white); font-weight: 700; font-size: 0.82rem;
+    flex-shrink: 0;
+    box-shadow: 0 2px 10px rgba(10,22,40,0.2);
+  }
+  .step-num::before { content: counter(step); }
+  .step-content h4 { font-size: 0.95rem; color: var(--navy); margin-bottom: 4px; }
+  .step-content p { font-size: 0.88rem; color: var(--text-soft); }
+
+  /* ─── TAGS ─── */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .tag {
+    background: #dbeafe;
+    color: var(--blue);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 0.78rem; font-weight: 600;
+  }
+  .tag.green { background: #dcfce7; color: #166534; }
+  .tag.yellow { background: #fef9c3; color: #854d0e; }
+  .tag.red { background: #fee2e2; color: #991b1b; }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--blue) 40%, transparent 100%);
+    border: none; margin: 0 0 48px;
+    opacity: 0.3;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+    padding: 32px 20px;
+    font-size: 0.83rem;
+  }
+  footer strong { color: var(--accent-glow); }
+
+  @media(max-width:700px){
+    .hero, .toc-wrap, .container { padding-left: 20px; padding-right: 20px; }
+    .hero { padding-top: 48px; padding-bottom: 40px; }
+    .card-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HERO ══════════════ -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-badge">📊 Complete Study Notes · 2026</div>
+  <h1>Google <span>Looker Studio</span><br>Complete Notes</h1>
+  <p class="hero-sub">A comprehensive reference covering every concept — from fundamentals to advanced techniques — for data visualization and reporting.</p>
+  <div class="hero-meta">
+    <div class="meta-pill"><div class="dot"></div> Prepared by <strong>&nbsp;Sameeksha</strong></div>
+    <div class="meta-pill"><div class="dot"></div> Year: <strong>&nbsp;2026</strong></div>
+    <div class="meta-pill"><div class="dot"></div> Tool: <strong>&nbsp;Google Looker Studio</strong></div>
+    <div class="meta-pill"><div class="dot"></div> Level: <strong>&nbsp;Beginner → Advanced</strong></div>
+  </div>
+</div>
+
+<!-- ══════════════ TOC ══════════════ -->
+<div class="toc-wrap">
+  <h2>Table of Contents</h2>
+  <div class="toc-grid">
+    <a href="#s1" class="toc-item"><span class="toc-num">01</span> Introduction</a>
+    <a href="#s2" class="toc-item"><span class="toc-num">02</span> Key Features</a>
+    <a href="#s3" class="toc-item"><span class="toc-num">03</span> Getting Started</a>
+    <a href="#s4" class="toc-item"><span class="toc-num">04</span> Data Sources</a>
+    <a href="#s5" class="toc-item"><span class="toc-num">05</span> Report Interface</a>
+    <a href="#s6" class="toc-item"><span class="toc-num">06</span> Chart Types</a>
+    <a href="#s7" class="toc-item"><span class="toc-num">07</span> Dimensions & Metrics</a>
+    <a href="#s8" class="toc-item"><span class="toc-num">08</span> Filters & Controls</a>
+    <a href="#s9" class="toc-item"><span class="toc-num">09</span> Calculated Fields</a>
+    <a href="#s10" class="toc-item"><span class="toc-num">10</span> Blending Data</a>
+    <a href="#s11" class="toc-item"><span class="toc-num">11</span> Sharing & Publishing</a>
+    <a href="#s12" class="toc-item"><span class="toc-num">12</span> Best Practices</a>
+    <a href="#s13" class="toc-item"><span class="toc-num">13</span> Shortcuts & Tips</a>
+    <a href="#s14" class="toc-item"><span class="toc-num">14</span> Common Errors</a>
+  </div>
+</div>
+
+<!-- ══════════════ MAIN CONTENT ══════════════ -->
+<div class="container">
+
+  <!-- ── 01 Introduction ── -->
+  <section class="section" id="s1">
+    <div class="section-header">
+      <div class="section-icon">📘</div>
+      <div>
+        <span class="section-num">01</span>
+        <h2>Introduction to Google Looker Studio</h2>
+      </div>
+    </div>
+    <div class="card">
+      <h3>What is Google Looker Studio?</h3>
+      <p>Google Looker Studio (formerly known as <strong>Google Data Studio</strong>) is a free, cloud-based business intelligence and data visualization tool developed by Google. It allows users to create interactive, shareable dashboards and reports by connecting to various data sources.</p>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>🕐 History</h3>
+        <ul>
+          <li>Launched in 2016 as <em>Google Data Studio</em></li>
+          <li>Rebranded to <em>Looker Studio</em> in October 2022</li>
+          <li>Part of Google's Looker product family</li>
+          <li>Looker Studio Pro for enterprise features (paid)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🎯 Purpose</h3>
+        <ul>
+          <li>Turn raw data into beautiful, informative reports</li>
+          <li>Real-time data visualization</li>
+          <li>Easy collaboration with teams and clients</li>
+          <li>Supports both technical and non-technical users</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>💰 Pricing</h3>
+        <ul>
+          <li><strong>Looker Studio:</strong> Free for all users</li>
+          <li><strong>Looker Studio Pro:</strong> Paid, team management + SLA</li>
+          <li>Available at <code>lookerstudio.google.com</code></li>
+          <li>Google account required</li>
+        </ul>
+      </div>
+    </div>
+    <div class="highlight">
+      <h4>💡 Quick Definition</h4>
+      <p>Looker Studio = <strong>Data Connector</strong> + <strong>Visual Editor</strong> + <strong>Collaboration Layer</strong>. It is NOT a database — it reads from existing sources and visualizes them in real-time.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 02 Key Features ── -->
+  <section class="section" id="s2">
+    <div class="section-header">
+      <div class="section-icon">⭐</div>
+      <div>
+        <span class="section-num">02</span>
+        <h2>Key Features</h2>
+      </div>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>🔗 50+ Data Connectors</h3>
+        <p>Native connectors to Google Analytics, Sheets, BigQuery, Ads, Search Console, YouTube, and hundreds of third-party sources via partner connectors.</p>
+      </div>
+      <div class="card">
+        <h3>🎨 Drag-and-Drop Editor</h3>
+        <p>No coding required. Add charts, tables, images, text, shapes and position them freely on the canvas with pixel-level control.</p>
+      </div>
+      <div class="card">
+        <h3>🔄 Real-Time Data</h3>
+        <p>Reports automatically refresh from live data sources. Configure refresh rate from minutes to daily depending on source.</p>
+      </div>
+      <div class="card">
+        <h3>🤝 Collaboration</h3>
+        <p>Share reports with view or edit access. Multiple users can work simultaneously, similar to Google Docs. Embed reports on websites.</p>
+      </div>
+      <div class="card">
+        <h3>🧮 Calculated Fields</h3>
+        <p>Create custom metrics and dimensions using formulas. Supports functions like SUM, AVG, CONCAT, CASE WHEN, and regex operations.</p>
+      </div>
+      <div class="card">
+        <h3>🔀 Data Blending</h3>
+        <p>Combine multiple data sources in a single chart using LEFT JOIN. Merge Google Analytics + Google Ads data seamlessly.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 03 Getting Started ── -->
+  <section class="section" id="s3">
+    <div class="section-header">
+      <div class="section-icon">🚀</div>
+      <div>
+        <span class="section-num">03</span>
+        <h2>Getting Started</h2>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-content">
+          <h4>Sign In to Google Account</h4>
+          <p>Go to <code>lookerstudio.google.com</code>. Sign in with your Google account. No installation required — it's fully browser-based.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-content">
+          <h4>Create a New Report</h4>
+          <p>Click the <strong>+ Create</strong> button on the home screen. Select <strong>Report</strong>. The editor will open on a blank canvas.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-content">
+          <h4>Connect a Data Source</h4>
+          <p>You'll be prompted to add a data source. Choose from Google's native connectors (Sheets, Analytics, etc.) or a partner connector.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-content">
+          <h4>Add Your First Chart</h4>
+          <p>Click <strong>Insert → Chart</strong> from the top menu. Draw the chart on the canvas. Select dimensions and metrics from the right panel.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-content">
+          <h4>Style &amp; Format</h4>
+          <p>Use the <strong>Style</strong> tab in the right panel to change colors, fonts, borders, backgrounds, and chart-specific styling options.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-content">
+          <h4>Share or Publish</h4>
+          <p>Click the <strong>Share</strong> button. Add collaborators by email, or generate a shareable link. Choose view-only or edit access.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 04 Data Sources ── -->
+  <section class="section" id="s4">
+    <div class="section-header">
+      <div class="section-icon">🗃️</div>
+      <div>
+        <span class="section-num">04</span>
+        <h2>Data Sources &amp; Connectors</h2>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Connector Examples</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Google Products</td>
+            <td>Google Sheets, Google Analytics 4, Google Ads, BigQuery, Search Console, YouTube Analytics, Campaign Manager</td>
+            <td>Free, native, no extra setup</td>
+          </tr>
+          <tr>
+            <td>Databases</td>
+            <td>MySQL, PostgreSQL, MS SQL Server, Cloud SQL</td>
+            <td>Requires connection credentials</td>
+          </tr>
+          <tr>
+            <td>Files</td>
+            <td>CSV File Upload, Google Cloud Storage</td>
+            <td>Static data, refreshed on upload</td>
+          </tr>
+          <tr>
+            <td>Partner Connectors</td>
+            <td>Facebook Ads, HubSpot, Salesforce, Shopify, Twitter/X, LinkedIn, Stripe</td>
+            <td>Via Google Connector Gallery; some paid</td>
+          </tr>
+          <tr>
+            <td>APIs</td>
+            <td>Community Connectors (built with Apps Script)</td>
+            <td>Custom-built by developers</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>📌 Data Source vs Data Set</h3>
+        <ul>
+          <li><strong>Data Source:</strong> The connection configuration (reusable across reports)</li>
+          <li><strong>Data Set:</strong> The actual data pulled from the source for a specific chart</li>
+          <li>One report can have multiple data sources</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🔄 Refresh Settings</h3>
+        <ul>
+          <li>Default: Data caches for 12 hours</li>
+          <li>Manual refresh available in view mode</li>
+          <li>BigQuery: near real-time</li>
+          <li>Google Sheets: updates on schedule</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 05 Report Interface ── -->
+  <section class="section" id="s5">
+    <div class="section-header">
+      <div class="section-icon">🖥️</div>
+      <div>
+        <span class="section-num">05</span>
+        <h2>Report Interface &amp; Workspace</h2>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Interface Overview</h3>
+      <ul>
+        <li><strong>Menu Bar (top):</strong> File, Edit, View, Insert, Page, Arrange, Resource, Help</li>
+        <li><strong>Toolbar:</strong> Undo/Redo, Add chart, Add control, Add text, Add image, Add shape, Theme &amp; Layout</li>
+        <li><strong>Canvas:</strong> The main editing area — your report page</li>
+        <li><strong>Properties Panel (right):</strong> Data tab and Style tab for selected component</li>
+        <li><strong>Page Panel:</strong> Add, duplicate, reorder, rename pages</li>
+      </ul>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>📄 Pages</h3>
+        <ul>
+          <li>Add unlimited pages to a report</li>
+          <li>Each page can have different data sources</li>
+          <li>Duplicate pages to reuse layouts</li>
+          <li>Set page-level vs report-level filters</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🖼️ Canvas Settings</h3>
+        <ul>
+          <li>Default canvas: 1200 × 900 px</li>
+          <li>Custom dimensions for any size</li>
+          <li>Preset: Letter, A4, Widescreen, etc.</li>
+          <li>Background color or image customizable</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🎨 Themes</h3>
+        <ul>
+          <li>Built-in themes: Simple, Streamline, Material</li>
+          <li>Custom theme: define primary/secondary colors, font family</li>
+          <li>Theme applies globally to all components</li>
+          <li>Override theme per-component via Style tab</li>
+        </ul>
+      </div>
+    </div>
+    <div class="highlight">
+      <h4>✏️ Edit Mode vs View Mode</h4>
+      <ul>
+        <li><strong>Edit Mode:</strong> Full design access — add, move, delete, configure components</li>
+        <li><strong>View Mode:</strong> Interactivity only — use filters, date pickers; no design changes</li>
+        <li>Switch: Click the pencil ✏️ icon or <code>Ctrl+Shift+E</code></li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 06 Chart Types ── -->
+  <section class="section" id="s6">
+    <div class="section-header">
+      <div class="section-icon">📊</div>
+      <div>
+        <span class="section-num">06</span>
+        <h2>Chart Types &amp; Visualizations</h2>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Chart Type</th><th>Best Used For</th><th>Key Settings</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>📊 Bar Chart</td>
+            <td>Comparing categories</td>
+            <td>Horizontal/Vertical, Stacked/Grouped, Sort</td>
+          </tr>
+          <tr>
+            <td>📈 Line Chart</td>
+            <td>Trends over time</td>
+            <td>Smooth curves, Reference lines, Multi-series</td>
+          </tr>
+          <tr>
+            <td>🥧 Pie / Donut</td>
+            <td>Part-to-whole relationships</td>
+            <td>Max slices, Labels, Donut hole size</td>
+          </tr>
+          <tr>
+            <td>🗺️ Geo Map</td>
+            <td>Geographic data visualization</td>
+            <td>Country/Region/City level, Color scale</td>
+          </tr>
+          <tr>
+            <td>📋 Table</td>
+            <td>Detailed data, multiple metrics</td>
+            <td>Heatmap, Pagination, Sorting, Row count</td>
+          </tr>
+          <tr>
+            <td>🔢 Scorecard</td>
+            <td>Single KPI display</td>
+            <td>Comparison date range, Sparkline</td>
+          </tr>
+          <tr>
+            <td>📉 Area Chart</td>
+            <td>Volume over time</td>
+            <td>Stacked, 100% stacked</td>
+          </tr>
+          <tr>
+            <td>💧 Scatter Plot</td>
+            <td>Correlation between two metrics</td>
+            <td>Bubble size (third metric), Quadrant lines</td>
+          </tr>
+          <tr>
+            <td>📦 Pivot Table</td>
+            <td>Cross-tabulation analysis</td>
+            <td>Row/Column dimensions, Heatmap</td>
+          </tr>
+          <tr>
+            <td>📶 Bullet Chart</td>
+            <td>Actual vs target comparison</td>
+            <td>Target metric, Range shading</td>
+          </tr>
+          <tr>
+            <td>🌡️ Gauge</td>
+            <td>Progress toward a goal</td>
+            <td>Min/Max value, Color ranges</td>
+          </tr>
+          <tr>
+            <td>☁️ Word Cloud</td>
+            <td>Text frequency analysis</td>
+            <td>Word count, Size scaling</td>
+          </tr>
+          <tr>
+            <td>📡 Treemap</td>
+            <td>Hierarchical proportions</td>
+            <td>Drill-down, Color metric</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3>🔧 Common Chart Settings (Data Tab)</h3>
+      <ul>
+        <li><strong>Dimension:</strong> The category/grouping field (e.g., Date, Country, Campaign)</li>
+        <li><strong>Breakdown Dimension:</strong> Secondary split (creates multi-series)</li>
+        <li><strong>Metric:</strong> The numerical value to measure (e.g., Sessions, Revenue)</li>
+        <li><strong>Date Range Dimension:</strong> The field used for time filtering</li>
+        <li><strong>Default Date Range:</strong> Auto, Last 28 days, Custom, etc.</li>
+        <li><strong>Filter:</strong> Include/Exclude filter applied only to this chart</li>
+        <li><strong>Sort:</strong> Primary and secondary sort by dimension or metric</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 07 Dimensions & Metrics ── -->
+  <section class="section" id="s7">
+    <div class="section-header">
+      <div class="section-icon">📐</div>
+      <div>
+        <span class="section-num">07</span>
+        <h2>Dimensions &amp; Metrics</h2>
+      </div>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>📁 Dimensions</h3>
+        <p>Qualitative or categorical fields that <strong>describe</strong> your data.</p>
+        <ul>
+          <li>Shown in <strong>green</strong> in the field list</li>
+          <li>Examples: Country, Date, Page Title, Campaign Name, Device Category</li>
+          <li>Used on X-axis or as row labels</li>
+          <li>Not aggregated — each unique value appears as a row</li>
+        </ul>
+        <div class="tags">
+          <span class="tag green">Country</span>
+          <span class="tag green">Date</span>
+          <span class="tag green">Channel</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>📊 Metrics</h3>
+        <p>Quantitative fields that <strong>measure</strong> your data — always aggregated.</p>
+        <ul>
+          <li>Shown in <strong>blue</strong> in the field list</li>
+          <li>Examples: Sessions, Users, Bounce Rate, Revenue, CTR</li>
+          <li>Used on Y-axis or as numeric values</li>
+          <li>Aggregation: SUM, AVG, COUNT, COUNT DISTINCT, MAX, MIN</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Sessions</span>
+          <span class="tag">Revenue</span>
+          <span class="tag">CTR</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>🔄 Changing Field Type &amp; Aggregation</h3>
+      <ul>
+        <li>Click the <strong>field type icon</strong> next to any metric to change aggregation (SUM → AVG, etc.)</li>
+        <li>Convert a dimension to a metric: edit the data source and change type</li>
+        <li><strong>Auto</strong> aggregation: Looker Studio detects the correct method from source</li>
+        <li>Date fields can be grouped by: Minute, Hour, Day, Week, Month, Quarter, Year, ISO Week</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 08 Filters & Controls ── -->
+  <section class="section" id="s8">
+    <div class="section-header">
+      <div class="section-icon">🔍</div>
+      <div>
+        <span class="section-num">08</span>
+        <h2>Filters &amp; Interactive Controls</h2>
+      </div>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>📅 Date Range Control</h3>
+        <ul>
+          <li>Lets viewers select a custom date range</li>
+          <li>Can apply to entire page or specific charts</li>
+          <li>Default presets: Last 7/28/90 days, This month, etc.</li>
+          <li>Requires a Date dimension in the data source</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🔽 Drop-Down List</h3>
+        <ul>
+          <li>Single-select or multi-select option list</li>
+          <li>Based on a dimension field</li>
+          <li>Dynamic — values populate from data</li>
+          <li>Example: Filter by Country, Campaign, or Device</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>✅ Checkbox</h3>
+        <ul>
+          <li>Toggle filter on/off for a specific value</li>
+          <li>Useful for boolean fields</li>
+          <li>Useful for mobile-friendly reports</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🔢 Slider</h3>
+        <ul>
+          <li>Numeric range filter using a slider</li>
+          <li>Applied to metric fields</li>
+          <li>Example: Show sessions between 100–1000</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🔎 Search Filter</h3>
+        <ul>
+          <li>Text search box for dimension values</li>
+          <li>Supports partial matching</li>
+          <li>Great for large dimension sets (page titles, keywords)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📌 Advanced Filters</h3>
+        <ul>
+          <li>Include / Exclude rules per chart or page</li>
+          <li>Conditions: Equal, Contains, Starts with, Regex</li>
+          <li>Report-level vs Component-level filters</li>
+          <li>Segment filter for GA4 data</li>
+        </ul>
+      </div>
+    </div>
+    <div class="highlight">
+      <h4>⚙️ Filter Scope</h4>
+      <ul>
+        <li><strong>Report-Level Filter:</strong> Applied to all charts across all pages</li>
+        <li><strong>Page-Level Filter:</strong> Applied to all charts on a specific page only</li>
+        <li><strong>Chart-Level Filter:</strong> Applied to a single chart only</li>
+        <li><strong>Control Filter:</strong> Applied dynamically by the viewer using interactive controls</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 09 Calculated Fields ── -->
+  <section class="section" id="s9">
+    <div class="section-header">
+      <div class="section-icon">🧮</div>
+      <div>
+        <span class="section-num">09</span>
+        <h2>Calculated Fields &amp; Formulas</h2>
+      </div>
+    </div>
+    <div class="card">
+      <h3>What Are Calculated Fields?</h3>
+      <p>Custom dimensions or metrics you create using formulas. They exist at the data source level and are available across all charts using that source. Can also be created at the chart level (available only to that chart).</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Function Category</th><th>Examples</th><th>Usage</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Arithmetic</td>
+            <td><code>+  -  *  /</code></td>
+            <td>Revenue / Sessions = Avg. Revenue per Session</td>
+          </tr>
+          <tr>
+            <td>Aggregation</td>
+            <td><code>SUM(), AVG(), MAX(), MIN(), COUNT()</code></td>
+            <td>SUM(Revenue), AVG(Bounce Rate)</td>
+          </tr>
+          <tr>
+            <td>Conditional</td>
+            <td><code>CASE WHEN ... END, IF()</code></td>
+            <td>IF(CTR > 0.05, "Good", "Bad")</td>
+          </tr>
+          <tr>
+            <td>Text</td>
+            <td><code>CONCAT(), SUBSTR(), UPPER(), LOWER(), TRIM(), REGEXP_EXTRACT()</code></td>
+            <td>CONCAT(City, ", ", Country)</td>
+          </tr>
+          <tr>
+            <td>Date &amp; Time</td>
+            <td><code>YEAR(), MONTH(), DAY(), DATE_DIFF(), TODAY()</code></td>
+            <td>DATE_DIFF(Today, First Visit) = Days since visit</td>
+          </tr>
+          <tr>
+            <td>Type Casting</td>
+            <td><code>CAST(), TOTEXT(), TONUMBER()</code></td>
+            <td>CAST(Session_ID AS TEXT)</td>
+          </tr>
+          <tr>
+            <td>Math</td>
+            <td><code>ROUND(), FLOOR(), CEIL(), ABS(), LOG(), POWER()</code></td>
+            <td>ROUND(Revenue, 2)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3>💡 CASE WHEN Example</h3>
+      <p>Segment users by session count into groups:</p>
+      <br>
+      <code>
+        CASE<br>
+        &nbsp;&nbsp;WHEN Sessions >= 100 THEN "High Traffic"<br>
+        &nbsp;&nbsp;WHEN Sessions >= 10 THEN "Medium Traffic"<br>
+        &nbsp;&nbsp;ELSE "Low Traffic"<br>
+        END
+      </code>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 10 Data Blending ── -->
+  <section class="section" id="s10">
+    <div class="section-header">
+      <div class="section-icon">🔀</div>
+      <div>
+        <span class="section-num">10</span>
+        <h2>Data Blending</h2>
+      </div>
+    </div>
+    <div class="card">
+      <h3>What is Data Blending?</h3>
+      <p>Data blending allows you to combine data from <strong>two or more data sources</strong> in a single chart. Looker Studio performs a <strong>LEFT JOIN</strong> on a common key (join key). The left table's records are always preserved; unmatched right-table records appear as NULL.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-content">
+          <h4>Select a Chart → Click "Blend Data"</h4>
+          <p>In the Data panel on the right, scroll down and click <strong>BLEND DATA</strong>.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-content">
+          <h4>Choose Data Sources</h4>
+          <p>Add your primary (left) and secondary (right) data sources. You can add up to 5 sources.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-content">
+          <h4>Set Join Keys</h4>
+          <p>Select the common dimension(s) to join on (e.g., Date, Campaign ID, User ID). The values must match exactly.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-content">
+          <h4>Select Fields to Include</h4>
+          <p>Choose which dimensions and metrics from each source to include in the blended result.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-content">
+          <h4>Save &amp; Apply</h4>
+          <p>Click Save. The chart now uses blended data. The source name will show as "Blended Data".</p>
+        </div>
+      </div>
+    </div>
+    <div class="highlight">
+      <h4>⚠️ Blending Limitations</h4>
+      <ul>
+        <li>Only LEFT JOIN is supported (not INNER, RIGHT, or FULL JOIN)</li>
+        <li>Performance can be slower with large datasets</li>
+        <li>Blended data cannot be used in other blended sources</li>
+        <li>Some connector-specific features (like segments) may not work in blends</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 11 Sharing & Publishing ── -->
+  <section class="section" id="s11">
+    <div class="section-header">
+      <div class="section-icon">🌐</div>
+      <div>
+        <span class="section-num">11</span>
+        <h2>Sharing &amp; Publishing Reports</h2>
+      </div>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>👥 Share with People</h3>
+        <ul>
+          <li>Add individual Google accounts by email</li>
+          <li>Roles: <strong>Viewer</strong> or <strong>Editor</strong></li>
+          <li>Notify via email (optional)</li>
+          <li>Transfer ownership available</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🔗 Link Sharing</h3>
+        <ul>
+          <li>Generate a shareable URL</li>
+          <li>Options: Anyone with link can view/edit</li>
+          <li>Restrict to specific organization domain</li>
+          <li>Revoke link at any time</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🖼️ Embed in Website</h3>
+        <ul>
+          <li>Get embed code (iframe) from Share menu</li>
+          <li>Control width, height, and page shown</li>
+          <li>Report remains interactive when embedded</li>
+          <li>Viewers need access if report is private</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📧 Schedule Email Delivery</h3>
+        <ul>
+          <li>Send PDF snapshots on a schedule</li>
+          <li>Daily, Weekly, Monthly options</li>
+          <li>Add multiple recipients</li>
+          <li>Includes message and subject customization</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📥 Download as PDF</h3>
+        <ul>
+          <li>File → Download as PDF</li>
+          <li>Static snapshot of current view</li>
+          <li>All pages or selected pages</li>
+          <li>Used for client reporting presentations</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📋 Report Templates</h3>
+        <ul>
+          <li>Make a copy of any report</li>
+          <li>Use as a template for other clients/projects</li>
+          <li>Swap data sources on copy</li>
+          <li>Looker Studio Gallery has free templates</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 12 Best Practices ── -->
+  <section class="section" id="s12">
+    <div class="section-header">
+      <div class="section-icon">✅</div>
+      <div>
+        <span class="section-num">12</span>
+        <h2>Best Practices</h2>
+      </div>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>🎯 Design Principles</h3>
+        <ul>
+          <li>Follow the <strong>F-pattern</strong> — most important KPIs top-left</li>
+          <li>Use consistent colors for the same metrics across charts</li>
+          <li>Keep reports <strong>clean</strong> — max 5–7 charts per page</li>
+          <li>Always add a report title and last-updated date</li>
+          <li>Use white space — don't overcrowd the canvas</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>⚡ Performance Tips</h3>
+        <ul>
+          <li>Use <strong>BigQuery</strong> for large datasets instead of Sheets</li>
+          <li>Limit the number of data sources per report</li>
+          <li>Avoid blending data unless necessary</li>
+          <li>Use date filters to limit data pulled</li>
+          <li>Cache refreshes wisely — not every 15 minutes</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🧹 Data Quality</h3>
+        <ul>
+          <li>Clean data in the source (Sheets/BigQuery) before connecting</li>
+          <li>Standardize date formats</li>
+          <li>Avoid null values in key dimensions</li>
+          <li>Validate calculated field formulas</li>
+          <li>Test filters with edge cases</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📤 Sharing Etiquette</h3>
+        <ul>
+          <li>Share data source separately from the report</li>
+          <li>Use <em>View only</em> for clients by default</li>
+          <li>Lock the data source credentials (Owner's credentials)</li>
+          <li>Document what each metric means (use text boxes)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 13 Shortcuts & Tips ── -->
+  <section class="section" id="s13">
+    <div class="section-header">
+      <div class="section-icon">⌨️</div>
+      <div>
+        <span class="section-num">13</span>
+        <h2>Keyboard Shortcuts &amp; Power Tips</h2>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Shortcut</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>Ctrl + Z</code></td><td>Undo last action</td></tr>
+          <tr><td><code>Ctrl + Y</code></td><td>Redo action</td></tr>
+          <tr><td><code>Ctrl + C / V</code></td><td>Copy / Paste component</td></tr>
+          <tr><td><code>Ctrl + D</code></td><td>Duplicate selected component</td></tr>
+          <tr><td><code>Ctrl + G</code></td><td>Group selected components</td></tr>
+          <tr><td><code>Ctrl + A</code></td><td>Select all components on page</td></tr>
+          <tr><td><code>Delete</code></td><td>Delete selected component</td></tr>
+          <tr><td><code>Ctrl + Shift + E</code></td><td>Toggle Edit / View mode</td></tr>
+          <tr><td><code>Arrow Keys</code></td><td>Nudge selected component 1px</td></tr>
+          <tr><td><code>Shift + Arrow</code></td><td>Nudge 10px</td></tr>
+          <tr><td><code>Ctrl + Shift + ↑/↓</code></td><td>Move component to front / back</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-grid" style="margin-top:20px">
+      <div class="card">
+        <h3>💡 Pro Tips</h3>
+        <ul>
+          <li>Hold <strong>Shift</strong> while resizing to maintain aspect ratio</li>
+          <li>Right-click any component for quick actions menu</li>
+          <li>Double-click a chart to jump into its settings</li>
+          <li>Use <strong>Arrange → Align</strong> to perfectly align multiple components</li>
+          <li><strong>Resource → Manage Data Sources</strong> to edit/remove all sources</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🧩 Useful Features</h3>
+        <ul>
+          <li><strong>Report URL Parameters:</strong> Pre-filter reports via URL query strings</li>
+          <li><strong>Community Visualizations:</strong> Add custom charts from the gallery</li>
+          <li><strong>Looker Studio API:</strong> Automate report creation programmatically</li>
+          <li><strong>Cross-filtering:</strong> Click a chart element to filter other charts</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 14 Common Errors ── -->
+  <section class="section" id="s14">
+    <div class="section-header">
+      <div class="section-icon">⚠️</div>
+      <div>
+        <span class="section-num">14</span>
+        <h2>Common Errors &amp; Troubleshooting</h2>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Error / Issue</th><th>Cause</th><th>Solution</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Data credentials error</td>
+            <td>Connector token expired or revoked</td>
+            <td>Resource → Manage Data Sources → Reconnect</td>
+          </tr>
+          <tr>
+            <td>No data / empty chart</td>
+            <td>Filters too restrictive or date range has no data</td>
+            <td>Remove filters, extend date range, check source</td>
+          </tr>
+          <tr>
+            <td>Blended data mismatch</td>
+            <td>Join key values don't match between sources</td>
+            <td>Ensure same format (e.g., both YYYY-MM-DD)</td>
+          </tr>
+          <tr>
+            <td>Calculated field error</td>
+            <td>Syntax error or unsupported function</td>
+            <td>Check formula syntax, use formula editor preview</td>
+          </tr>
+          <tr>
+            <td>Slow report loading</td>
+            <td>Too many data sources or large dataset</td>
+            <td>Limit data, use BigQuery, reduce chart count</td>
+          </tr>
+          <tr>
+            <td>"Configuration incomplete"</td>
+            <td>Missing required dimension or metric</td>
+            <td>Check the Data tab — required fields shown in red</td>
+          </tr>
+          <tr>
+            <td>Date range control not working</td>
+            <td>Chart's date range dimension not set</td>
+            <td>Set "Date Range Dimension" in chart Data tab</td>
+          </tr>
+          <tr>
+            <td>Report not updating</td>
+            <td>Cache is active</td>
+            <td>Click the refresh ↻ icon in View mode</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div><!-- /container -->
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <p>📊 Google Looker Studio — Complete Notes &nbsp;|&nbsp; Prepared by <strong>Sameeksha</strong> &nbsp;|&nbsp; <strong>2026</strong></p>
+  <p style="margin-top:6px; font-size:0.78rem; opacity:0.6;">For educational purposes · All data tool references belong to their respective owners</p>
+</footer>
+
+</body>
+</html>
